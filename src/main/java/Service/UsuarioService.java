@@ -1,11 +1,14 @@
 package Service;
+import java.util.Optional;
 
-import javax.swing.text.html.Option;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import Entities.Usuario;
 import Repository.UsuarioRepository;
-
+@Service
 public class UsuarioService {
+	@Autowired
 	private final UsuarioRepository repository;
 	
 	public UsuarioService(UsuarioRepository repository) {
@@ -15,12 +18,18 @@ public class UsuarioService {
 	public Usuario cadastro(Usuario usuario) {
 		return repository.save(usuario);
 	}
+	//presica mudar, talvez
+	public Optional<Usuario>buscarPorEmail(String email) {
+		return null;
+	}
+
 	
-	public Option<Usuario> login(String email, String senha){
-		Option<Usuario> usuarioOpt = repository.findByEmail(email);
+	public Optional<Usuario> login(String email, String senha){
+		Optional<Usuario> usuarioOpt = repository.findByEmail(email);
 		if (usuarioOpt.isPresent() && usuarioOpt.get().getSenha().equals(senha)) {
             return usuarioOpt;
         }
-		return Optional.empty;
+		return Optional.empty();
 	}
+
 }
