@@ -22,6 +22,10 @@ public class UsuarioService {
 	public Optional<Usuario>buscarPorEmail(String email) {
 		return null;
 	}
+	
+	public Usuario salvar(Usuario usuario) {
+		return repository.save(usuario);
+	}
 
 	
 	public Optional<Usuario> login(String email, String senha){
