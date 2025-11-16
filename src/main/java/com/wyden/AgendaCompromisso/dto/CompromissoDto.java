@@ -1,20 +1,22 @@
-package dto;
+package com.wyden.AgendaCompromisso.dto;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class CompromisooCriarDto {
+public class CompromissoDto {
 	private String titulo;
 	private String descricao;
 	private LocalDateTime dataHora;
-	public CompromisooCriarDto() {
+	private Long UsuarioId;
+	public CompromissoDto() {
 		super();
 	}
-	public CompromisooCriarDto(String titulo, String descricao, LocalDateTime dataHora) {
+	public CompromissoDto(String titulo, String descricao, LocalDateTime dataHora, Long usuarioId) {
 		super();
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.dataHora = dataHora;
+		UsuarioId = usuarioId;
 	}
 	public String getTitulo() {
 		return titulo;
@@ -34,9 +36,15 @@ public class CompromisooCriarDto {
 	public void setDataHora(LocalDateTime dataHora) {
 		this.dataHora = dataHora;
 	}
+	public Long getUsuarioId() {
+		return UsuarioId;
+	}
+	public void setUsuarioId(Long usuarioId) {
+		UsuarioId = usuarioId;
+	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(dataHora, descricao, titulo);
+		return Objects.hash(UsuarioId, dataHora, descricao, titulo);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -46,13 +54,14 @@ public class CompromisooCriarDto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CompromisooCriarDto other = (CompromisooCriarDto) obj;
-		return Objects.equals(dataHora, other.dataHora) && Objects.equals(descricao, other.descricao)
-				&& Objects.equals(titulo, other.titulo);
+		CompromissoDto other = (CompromissoDto) obj;
+		return Objects.equals(UsuarioId, other.UsuarioId) && Objects.equals(dataHora, other.dataHora)
+				&& Objects.equals(descricao, other.descricao) && Objects.equals(titulo, other.titulo);
 	}
 	@Override
 	public String toString() {
-		return "CompromisooCriarDto [titulo=" + titulo + ", descricao=" + descricao + ", dataHora=" + dataHora + "]";
+		return "CompromissoDto [titulo=" + titulo + ", descricao=" + descricao + ", dataHora=" + dataHora
+				+ ", UsuarioId=" + UsuarioId + "]";
 	}
 	
 	

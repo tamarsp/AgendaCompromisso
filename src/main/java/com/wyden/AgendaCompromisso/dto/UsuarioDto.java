@@ -1,9 +1,9 @@
-package dto;
+package com.wyden.AgendaCompromisso.dto;
 
 import java.util.List;
 import java.util.Objects;
 
-import Entities.Compromisso;
+import com.wyden.AgendaCompromisso.Entities.Compromisso;
 
 public class UsuarioDto {
 	private Long Id;

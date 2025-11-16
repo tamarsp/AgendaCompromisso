@@ -1,22 +1,20 @@
-package dto;
+package com.wyden.AgendaCompromisso.dto;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class CompromissoDto {
+public class CompromisooCriarDto {
 	private String titulo;
 	private String descricao;
 	private LocalDateTime dataHora;
-	private Long UsuarioId;
-	public CompromissoDto() {
+	public CompromisooCriarDto() {
 		super();
 	}
-	public CompromissoDto(String titulo, String descricao, LocalDateTime dataHora, Long usuarioId) {
+	public CompromisooCriarDto(String titulo, String descricao, LocalDateTime dataHora) {
 		super();
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.dataHora = dataHora;
-		UsuarioId = usuarioId;
 	}
 	public String getTitulo() {
 		return titulo;
@@ -36,15 +34,9 @@ public class CompromissoDto {
 	public void setDataHora(LocalDateTime dataHora) {
 		this.dataHora = dataHora;
 	}
-	public Long getUsuarioId() {
-		return UsuarioId;
-	}
-	public void setUsuarioId(Long usuarioId) {
-		UsuarioId = usuarioId;
-	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(UsuarioId, dataHora, descricao, titulo);
+		return Objects.hash(dataHora, descricao, titulo);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -54,14 +46,13 @@ public class CompromissoDto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CompromissoDto other = (CompromissoDto) obj;
-		return Objects.equals(UsuarioId, other.UsuarioId) && Objects.equals(dataHora, other.dataHora)
-				&& Objects.equals(descricao, other.descricao) && Objects.equals(titulo, other.titulo);
+		CompromisooCriarDto other = (CompromisooCriarDto) obj;
+		return Objects.equals(dataHora, other.dataHora) && Objects.equals(descricao, other.descricao)
+				&& Objects.equals(titulo, other.titulo);
 	}
 	@Override
 	public String toString() {
-		return "CompromissoDto [titulo=" + titulo + ", descricao=" + descricao + ", dataHora=" + dataHora
-				+ ", UsuarioId=" + UsuarioId + "]";
+		return "CompromisooCriarDto [titulo=" + titulo + ", descricao=" + descricao + ", dataHora=" + dataHora + "]";
 	}
 	
 	
