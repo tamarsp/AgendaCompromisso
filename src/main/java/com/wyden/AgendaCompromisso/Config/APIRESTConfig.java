@@ -17,10 +17,13 @@ public class APIRESTConfig {
                         .allowedOrigins( "http://localhost:5173",
                                 "http://localhost:3000",   
                                 "http://127.0.0.1:5173",
-                                "*"    ) 
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*")
-                        .allowCredentials(false);
+                                /*"*"    */
+                                "https://agendacompromisso-production.up.railway.app"
+                        		);
+                        registry.addMapping("/api/**")
+                        	.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        	.allowedHeaders("*")
+                        	.allowCredentials(false);
             }
         };
     }
