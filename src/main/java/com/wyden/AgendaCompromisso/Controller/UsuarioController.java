@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wyden.AgendaCompromisso.Entities.Usuario;
 import com.wyden.AgendaCompromisso.Repository.UsuarioRepository;
+import com.wyden.AgendaCompromisso.dto.UsuarioDtoCadastro;
+import com.wyden.AgendaCompromisso.dto.UsuarioDtoLogin;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -47,6 +49,39 @@ public class UsuarioController {
 		return repository.save(usuario);
 	}
 	
+	@PostMapping("/usuarios/cadastro")
+    public ResponseEntity<?> cadastrar(@RequestBody UsuarioDtoCadastro dto) {
+
+        if (repository.findByEmail(dto.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest().body("Email já está em uso");
+        }
+
+        Usuario novo = new Usuario();
+        novo.setNome(dto.getNome());
+        novo.setEmail(dto.getEmail());
+        novo.setSenha(dto.getSenha());
+
+        Usuario salvo = repository.save(novo);
+        salvo.setSenha(null); 
+
+        return ResponseEntity.ok(salvo);
+    }
+	
+	@PostMapping("/usuarios/login")
+    public ResponseEntity<?> login(@RequestBody UsuarioDtoLogin dto) {
+
+        var user = repository.findByEmail(dto.getEmail());
+
+        if (user.isPresent() && user.get().getSenha().equals(dto.getSenha())) {
+            Usuario u = user.get();
+            u.setSenha(null); 
+            return ResponseEntity.ok(u);
+        }
+
+        return ResponseEntity.status(401).body("Email ou senha inválidos");
+    }
+
+	
 	@PutMapping("/{id}")
 	public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody Usuario usuario){
 		return repository.findById(id)
@@ -58,6 +93,7 @@ public class UsuarioController {
                 })
                 .orElse(ResponseEntity.notFound().build());
 	}
+	
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deletar(@PathVariable Long id) {

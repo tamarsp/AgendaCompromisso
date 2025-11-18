@@ -25,7 +25,7 @@ export default {
   methods: {
     async cadastrar() {
       try {
-        await api.post("/usuarios", {
+        await api.post("/usuarios/cadastro", {
           nome: this.nome,
           email: this.email,
           senha: this.senha
