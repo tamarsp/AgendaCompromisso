@@ -49,7 +49,7 @@ public class UsuarioController {
 		return repository.save(usuario);
 	}
 	
-	@PostMapping("/usuarios/cadastro")
+	@PostMapping("/cadastro")
     public ResponseEntity<?> cadastrar(@RequestBody UsuarioDtoCadastro dto) {
 
         if (repository.findByEmail(dto.getEmail()).isPresent()) {
@@ -67,7 +67,7 @@ public class UsuarioController {
         return ResponseEntity.ok(salvo);
     }
 	
-	@PostMapping("/usuarios/login")
+	@PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UsuarioDtoLogin dto) {
 
         var user = repository.findByEmail(dto.getEmail());
