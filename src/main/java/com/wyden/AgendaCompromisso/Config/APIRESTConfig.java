@@ -19,8 +19,8 @@ public class APIRESTConfig {
                                 "http://127.0.0.1:5173",
                                 /*"*"    */
                                 "https://agendacompromisso-production.up.railway.app"
-                        		);
-                        registry.addMapping("/api/**")
+                        		)
+                        /*registry.addMapping("/api/**")*/
                         	.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         	.allowedHeaders("*")
                         	.allowCredentials(false);
