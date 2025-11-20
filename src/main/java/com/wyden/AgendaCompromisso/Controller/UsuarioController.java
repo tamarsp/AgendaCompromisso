@@ -1,7 +1,5 @@
 package com.wyden.AgendaCompromisso.Controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,83 +23,70 @@ import com.wyden.AgendaCompromisso.dto.UsuarioDtoLogin;
 
 public class UsuarioController {
 	
-	@Autowired
-	private UsuarioRepository repository;
-	/**
-	 * @param
-	 * get e post 
-	 * @return
-	 */
-	@GetMapping
-	public List<Usuario> listarTodos(){
-		return repository.findAll();
-	}
-	
-	@GetMapping("/{id}")
-	public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id){
-		return repository.findById(id)
-				.map(usuario -> ResponseEntity.ok(usuario))
-				.orElse(ResponseEntity.notFound().build());
-	}
-	
-	@PostMapping
-	public Usuario criar(@RequestBody Usuario usuario) {
-		return repository.save(usuario);
-	}
-	
-	@PostMapping("/cadastro")
-    public ResponseEntity<?> cadastrar(@RequestBody UsuarioDtoCadastro dto) {
+	    @Autowired
+	    private UsuarioRepository repository;
 
-        if (repository.findByEmail(dto.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest().body("Email já está em uso");
-        }
+	    @GetMapping("/{id}")
+	    public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
+	        return repository.findById(id)
+	            .map(usuario -> {
+	                usuario.setSenha(null);
+	                return ResponseEntity.ok(usuario);
+	            })
+	            .orElse(ResponseEntity.notFound().build());
+	    }
 
-        Usuario novo = new Usuario();
-        novo.setNome(dto.getNome());
-        novo.setEmail(dto.getEmail());
-        novo.setSenha(dto.getSenha());
+	    @PostMapping("/cadastro")
+	    public ResponseEntity<?> cadastrar(@RequestBody UsuarioDtoCadastro dto) {
 
-        Usuario salvo = repository.save(novo);
-        salvo.setSenha(null); 
+	        if (repository.findByEmail(dto.getEmail()).isPresent()) {
+	            return ResponseEntity.badRequest().body("Email já está em uso");
+	        }
 
-        return ResponseEntity.ok(salvo);
-    }
-	
-	@PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UsuarioDtoLogin dto) {
+	        Usuario novo = new Usuario();
+	        novo.setNome(dto.getNome());
+	        novo.setEmail(dto.getEmail());
+	        novo.setSenha(dto.getSenha());
 
-        var user = repository.findByEmail(dto.getEmail());
+	        Usuario salvo = repository.save(novo);
+	        salvo.setSenha(null);
 
-        if (user.isPresent() && user.get().getSenha().equals(dto.getSenha())) {
-            Usuario u = user.get();
-            u.setSenha(null); 
-            return ResponseEntity.ok(u);
-        }
+	        return ResponseEntity.ok(salvo);
+	    }
 
-        return ResponseEntity.status(401).body("Email ou senha inválidos");
-    }
+	    @PostMapping("/login")
+	    public ResponseEntity<?> login(@RequestBody UsuarioDtoLogin dto) {
 
-	
-	@PutMapping("/{id}")
-	public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody Usuario usuario){
-		return repository.findById(id)
-                .map(existente -> {
-                    existente.setNome(usuario.getNome());
-                    existente.setEmail(usuario.getEmail());
-                    existente.setSenha(usuario.getSenha());
-                    return ResponseEntity.ok(repository.save(existente));
-                })
-                .orElse(ResponseEntity.notFound().build());
-	}
-	
-	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deletar(@PathVariable Long id) {
-        return repository.findById(id)
-                .map(existente -> {
-                    repository.delete(existente);
-                    return ResponseEntity.ok().build();
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
+	        var user = repository.findByEmail(dto.getEmail());
+
+	        if (user.isPresent() && user.get().getSenha().equals(dto.getSenha())) {
+	            Usuario u = user.get();
+	            u.setSenha(null);
+	            return ResponseEntity.ok(u);
+	        }
+
+	        return ResponseEntity.status(401).body("Email ou senha inválidos");
+	    }
+
+	    @PutMapping("/{id}")
+	    public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
+	        return repository.findById(id)
+	            .map(existente -> {
+	                existente.setNome(usuario.getNome());
+	                existente.setEmail(usuario.getEmail());
+	                existente.setSenha(usuario.getSenha());
+	                return ResponseEntity.ok(repository.save(existente));
+	            })
+	            .orElse(ResponseEntity.notFound().build());
+	    }
+
+	    @DeleteMapping("/{id}")
+	    public ResponseEntity<Object> deletar(@PathVariable Long id) {
+	        return repository.findById(id)
+	            .map(existente -> {
+	                repository.delete(existente);
+	                return ResponseEntity.ok().build();
+	            })
+	            .orElse(ResponseEntity.notFound().build());
+	    }
 }

@@ -11,11 +11,14 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="tb_compromisso")
 public class Compromisso {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String titulo;
     private String descricao;
     private LocalDateTime dataHora;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     public Compromisso() {}
@@ -28,8 +31,7 @@ public class Compromisso {
         this.usuario = usuario;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   
     public long getId() {
         return id;
     }
@@ -58,8 +60,7 @@ public class Compromisso {
         this.dataHora = dataHora;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    
     public Usuario getUsuario() {
         return usuario;
     }

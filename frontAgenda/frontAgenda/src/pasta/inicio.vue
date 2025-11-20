@@ -1,7 +1,10 @@
 <template>
   <div class="inicio-container">
     <h2>Agenda de Compromissos</h2>
-
+	
+	<div v-if="mensagem" :class="['alert', isError ? 'alert-error' : 'alert-success']">
+	        {{ mensagem }}
+	 </div>
     <form @submit.prevent="salvar">
       <input v-model="titulo" type="text" placeholder="Título" required />
       <input v-model="data" type="date" required />
@@ -10,52 +13,102 @@
       <button type="submit">Salvar</button>
     </form>
 
-    <h3>Compromissos</h3>
-    <ul>
-      <li v-for="c in compromissos" :key="c.id">
-        <strong>{{ c.titulo }}</strong> - {{ c.data }} {{ c.hora }}
-        <p>{{ c.descricao }}</p>
-      </li>
-    </ul>
-  </div>
+	<h3>Meus Compromissos</h3>
+	    <ul v-if="compromissos.length" class="comp-list">
+	      <li v-for="c in compromissos" :key="c.id">
+	        <div class="list-item">
+	            <strong>{{ c.titulo }}</strong> 
+	            <span class="data-hora">{{ formatarData(c.dataHora) }}</span>
+	            <p v-if="c.descricao">{{ c.descricao }}</p>
+	        </div>
+	      </li>
+	    </ul>
+	    <p v-else class="muted">Nenhum compromisso encontrado.</p>
+	  </div>
 </template>
 
 <script>
 import api from "../service/apiRestConfig"
+import moment from "moment"
 
 export default {
   data() {
     return {
+      usuarioId: localStorage.getItem("usuarioId"), 
       titulo: "",
       data: "",
       hora: "",
       descricao: "",
-      compromissos: []
+      compromissos: [],
+      mensagem: null,
+      isError: false,
     }
   },
-  mounted() {
-    this.buscarCompromissos()
-  },
+
   methods: {
-    async buscarCompromissos() {
-      const response = await api.get("/compromissos")
-      this.compromissos = response.data
+    formatarData(dataHora) {
+      return moment(dataHora).format("DD/MM/YYYY [às] HH:mm")
     },
-    async salvar() {
-      const compromisso = {
-        titulo: this.titulo,
-        data: this.data,
-        hora: this.hora,
-        descricao: this.descricao
+
+    async buscarCompromissos() {
+      if (!this.usuarioId) {
+        this.mensagem = "Usuário não logado.";
+        this.isError = true;
+        return;
       }
-      await api.post("/compromissos", compromisso)
-      this.buscarCompromissos()
-      this.titulo = this.data = this.hora = this.descricao = ""
+
+      try {
+        const response = await api.get(`/compromissos/usuario/${this.usuarioId}`);
+        this.compromissos = response.data;
+      } catch (error) {
+        this.mensagem = "Erro ao carregar compromissos.";
+        this.isError = true;
+      }
+    },
+
+    async salvar() {
+      if (!this.usuarioId) {
+        this.mensagem = "Erro: usuário não identificado.";
+        this.isError = true;
+        return;
+      }
+
+      const dataHoraCompleta = `${this.data}T${this.hora}:00`;
+
+      const compromissoData = {
+        titulo: this.titulo,
+        descricao: this.descricao,
+        dataHora: dataHoraCompleta
+      }
+
+      try {
+        const response = await api.post(
+          `/compromissos/usuario/${this.usuarioId}`,
+          compromissoData
+        )
+
+        this.mensagem = `Compromisso "${response.data.titulo}" criado!`;
+        this.isError = false;
+
+        this.buscarCompromissos();
+
+        this.titulo = "";
+        this.data = "";
+        this.hora = "";
+        this.descricao = "";
+
+      } catch (error) {
+        this.mensagem = "Erro ao salvar compromisso.";
+        this.isError = true;
+      }
     }
+  },
+
+  mounted() {
+    this.buscarCompromissos();
   }
 }
 </script>
-
 <style scoped>
 * {
   margin: 0;

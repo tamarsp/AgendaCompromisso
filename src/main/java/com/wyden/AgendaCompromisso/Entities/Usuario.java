@@ -3,6 +3,8 @@ package com.wyden.AgendaCompromisso.Entities;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,17 +14,19 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="tb_user")
+@Table(name="tb_usuario")
 public class Usuario {
-	private String nome;
-	private String email;
-	private String senha;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	private Long id;
+	private String nome;
+	private String email;
+	@JsonIgnore
+	private String senha;
+	
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
 	private List<Compromisso> compromissos;
 	public Usuario() {
 		super();
@@ -91,9 +95,5 @@ public class Usuario {
 				&& Objects.equals(senha, other.senha);
 	}
 	
-}
-
-	
-	
-	
+}	
 		

@@ -1,33 +1,25 @@
-/*import { createRouter, createWebHistory } from 'vue-router'
-import index from '@/pasta/index.vue'
-import cadastro from '@/pasta/cadastro.vue'
-import inicio from '@/pasta/inicio.vue'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
-  { path: '/', component: index },
-  { path: '/cadastro', component: cadastro },
-  { path: '/inicio', component: inicio }
+	{
+	    path: '/',
+	    name: 'login',
+	    component: () => import('../pasta/index.vue')
+	  },
+	  {
+	    path: '/cadastro',
+	    name: 'cadastro',
+	    component: () => import('../pasta/cadastro.vue')
+	  },
+	  {
+	    path: '/inicio',
+	    name: 'inicio',
+	    component: () => import('../pasta/inicio.vue')
+	  }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
-})*/
-
-/*export default router*/
-import { createRouter, createWebHashHistory } from 'vue-router'
-import index from '@/pasta/index.vue'
-import cadastro from '@/pasta/cadastro.vue'
-import inicio from '@/pasta/inicio.vue'
-
-const routes = [
-  { path: '/', component: index },
-  { path: '/cadastro', component: cadastro },
-  { path: '/inicio', component: inicio }
-]
-
-const router = createRouter({
-  history: createWebHashHistory(),
   routes
 })
 

@@ -1,8 +1,6 @@
 package com.wyden.AgendaCompromisso.Service;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,54 +9,68 @@ import com.wyden.AgendaCompromisso.Entities.Usuario;
 import com.wyden.AgendaCompromisso.Repository.CompromissoRepository;
 import com.wyden.AgendaCompromisso.Repository.UsuarioRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class CompromissoService {
-	 @Autowired
-	    private CompromissoRepository repository;
+	@Autowired
+    private CompromissoRepository repository;
 
-	    @Autowired
-	    private UsuarioRepository usuarioRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-	    public List<Compromisso> listarTodos() {
-	        return repository.findAll();
-	    }
-	    
-	    public Optional<Compromisso> buscarPorId(Long id) {
-	        return repository.findById(id);
-	    }
+  
+    public List<Compromisso> listarTodos() {
+        return repository.findAll();
+    }
 
-	    public Compromisso salvar(Compromisso compromisso) {
-	        return repository.save(compromisso);
-	    }
+    public Compromisso buscarPorId(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Compromisso não encontrado"));
+    }
 
-	    public Compromisso salvarComUsuario(Compromisso compromisso, Long usuarioId) {
-	        Usuario usuario = usuarioRepository.findById(usuarioId)
-	                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-	        compromisso.setUsuario(usuario);
+    @Transactional
+    public Compromisso salvar(Compromisso compromisso) {
+        return repository.save(compromisso);
+    }
 
-	        return repository.save(compromisso);
-	    }
-	    
-	    public Compromisso atualizar(Long id, Compromisso dadosAtualizados) {
-	        return repository.findById(id)
-	                .map(compromisso -> {
-	                    compromisso.setTitulo(dadosAtualizados.getTitulo());
-	                    compromisso.setDescricao(dadosAtualizados.getDescricao());
-	                    compromisso.setDataHora(dadosAtualizados.getDataHora());
-	                    compromisso.setUsuario(dadosAtualizados.getUsuario());
-	                    return repository.save(compromisso);
-	                })
-	                .orElse(null);
-	    }
+    
+    @Transactional
+    public Compromisso salvarComUsuario(Compromisso compromisso, Long usuarioId) {
 
-	    public boolean deletar(Long id) {
-	        return repository.findById(id)
-	                .map(compromisso -> {
-	                    repository.delete(compromisso);
-	                    return true;
-	                })
-	                .orElse(false);
-	    }
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        compromisso.setUsuario(usuario);
+
+        return repository.save(compromisso);
+    }
+
+    @Transactional
+    public Compromisso atualizar(Long id, Compromisso dados) {
+
+        Compromisso existente = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Compromisso não encontrado"));
+
+        existente.setTitulo(dados.getTitulo());
+        existente.setDescricao(dados.getDescricao());
+        existente.setDataHora(dados.getDataHora());
+
+        // Se vier usuário no JSON, atualiza
+        if (dados.getUsuario() != null) {
+            existente.setUsuario(dados.getUsuario());
+        }
+
+        return repository.save(existente);
+    }
+
+    @Transactional
+    public void deletar(Long id) {
+        Compromisso existente = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Compromisso não encontrado"));
+
+        repository.delete(existente);
+    }
 
 }

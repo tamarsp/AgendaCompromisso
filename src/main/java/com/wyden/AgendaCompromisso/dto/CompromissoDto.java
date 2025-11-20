@@ -64,5 +64,4 @@ public class CompromissoDto {
 				+ ", UsuarioId=" + UsuarioId + "]";
 	}
 	
-	
 }
