@@ -14,7 +14,7 @@ export default defineConfig({
   base: '/',
 
   build: {
-    outDir: 'staic',
+    outDir: 'dist',
     emptyOutDir: true
   },
 
