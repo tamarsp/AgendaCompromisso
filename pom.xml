@@ -81,7 +81,7 @@
                         <outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
                         <resources>
                             <resource>
-                                <directory>../frontAgenda/dist</directory>
+                                <directory>${project.basedir}/frontAgenda/frontAgenda/dist</directory>
                                 <filtering>false</filtering>
                             </resource>
                         </resources>
