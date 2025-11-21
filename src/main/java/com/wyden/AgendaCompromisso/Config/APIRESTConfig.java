@@ -34,7 +34,7 @@ public class APIRESTConfig {
                 registry.addViewController("/{spring:[\\w-]+}")
                         .setViewName("forward:/");
                 
-                registry.addViewController("/**/{spring:[\\w-]+}")
+                registry.addViewController("/{spring:[\\w-]+}/**")
                         .setViewName("forward:/");
             }
         };
