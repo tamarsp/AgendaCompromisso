@@ -1,5 +1,5 @@
 [build]
-builder = "paketobuildpacks/builder-jammy-base"
+build = "maven"
 
 [deploy]
 start = "java -jar target/app.jar"
