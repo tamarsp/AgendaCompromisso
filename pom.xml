@@ -92,5 +92,15 @@
 
     </plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>production</id>
+			<!-- Este perfil não precisa de configurações específicas, mas sua presença 
+			     evita que o Maven falhe ao tentar ativá-lo com o comando do Railway. -->
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
 
 </project>
