@@ -1,4 +1,5 @@
 <template>
+	<div id="app"></div>
   <div class="cadastro-container">
     <h2>Cadastrar Usuário</h2>
     <form @submit.prevent="cadastrar">

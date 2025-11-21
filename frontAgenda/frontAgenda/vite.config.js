@@ -8,6 +8,7 @@ export default defineConfig({
   // CORREÇÃO CRÍTICA: Define o caminho base como '/'
   // Isso garante que todos os assets no index.html (como "assets/index-...") 
   // sejam gerados com um caminho absoluto: "/assets/index-..."
+  
   base: '/',
   
   plugins: [
