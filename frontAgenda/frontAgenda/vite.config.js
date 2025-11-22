@@ -9,7 +9,7 @@ export default defineConfig({
   // Isso garante que todos os assets no index.html (como "assets/index-...") 
   // sejam gerados com um caminho absoluto: "/assets/index-..."
   
-  base: './',
+  base: '//',
   
   plugins: [
     vue(),
