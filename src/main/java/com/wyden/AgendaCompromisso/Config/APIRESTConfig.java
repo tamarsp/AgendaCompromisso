@@ -3,39 +3,29 @@ package com.wyden.AgendaCompromisso.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class APIRESTConfig {
 
-	@Bean
+    @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
+
             @Override
             public void addCorsMappings(CorsRegistry registry) {
 
-                registry.addMapping("/**") 
+                registry.addMapping("/**")
                         .allowedOrigins(
-                                "http://localhost:5173",
-                                "http://127.0.0.1:5173",
-                                "http://localhost:3000",
+                                "http://localhost:5173",      
+                                "https://seu-dominio.com", 
                                 "https://agendacompromisso-production.up.railway.app"
+                                                     
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowCredentials(false); 
-            
-            }
-            
-            @Override
-            public void addViewControllers(ViewControllerRegistry registry) {
-          
-                registry.addViewController("/{spring:[\\w-]+}")
-                        .setViewName("forward:/");
-                
-                registry.addViewController("/{spring:[\\w-]+}/**")
-                        .setViewName("forward:/");
+                        .allowCredentials(false)
+                        .maxAge(3600);
             }
         };
     }
