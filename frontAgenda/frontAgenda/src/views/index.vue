@@ -18,26 +18,32 @@
 import api from "../service/apiRestConfig"
 
 export default {
-	data() {
-		return {
-			email: "",
-			senha: ""
-		}
-	},
-	methods: {
-		async login() {
-			try {
-				const response = await api.post("/usuarios/login", {
-					email: this.email,
-					senha: this.senha
-				})
-				alert("Login realizado com sucesso!")
-				this.$router.push("/inicio")
-			} catch (error) {
-				alert("Erro ao fazer login!")
-			}
-		}
-	}
+  data() {
+    return {
+      email: "",
+      senha: ""
+    }
+  },
+
+  methods: {
+    async login() {
+      try {
+        const response = await api.post("/usuarios/login", {
+          email: this.email,
+          senha: this.senha
+        });
+
+        localStorage.setItem("usuarioId", response.data.id);
+
+        alert("Login realizado com sucesso!");
+
+        this.$router.push("/inicio");
+      } catch (error) {
+        alert("Erro ao fazer login! Verifique seu e-mail e senha.");
+        console.error(error);
+      }
+    }
+  }
 }
 </script>
 <style scoped>
