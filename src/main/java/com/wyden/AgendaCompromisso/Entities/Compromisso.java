@@ -8,9 +8,22 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
+/**
+ * Entidade que representa um compromisso de um usuário no sistema.
+ * */
 @Entity
 @Table(name="tb_compromisso")
 public class Compromisso {
+	
+	/**Construtor completo.
+    * 
+    * id        Identificador do compromisso
+    * titulo    Título do compromisso
+    * descricao Descrição do compromisso
+    *dataHora  Data e hora do compromisso
+    * usuario   Usuário associado
+    */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

@@ -11,6 +11,12 @@ import com.wyden.AgendaCompromisso.Repository.UsuarioRepository;
 
 import jakarta.transaction.Transactional;
 
+/**
+* Serviço responsável pela lógica de negócios relacionada a compromissos.
+* Este serviço realiza operações como listar, buscar, criar, atualizar e deletar compromissos.
+* Também permite associar compromissos a usuários.
+*/
+
 @Service
 public class CompromissoService {
 	@Autowired
@@ -19,17 +25,29 @@ public class CompromissoService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-  
+   /**
+    * Retorna todos os compromissos do sistema.
+    * 
+    * lista de todos os compromissos
+    */
     public List<Compromisso> listarTodos() {
         return repository.findAll();
     }
-
+    /**
+     * Busca um compromisso pelo seu ID.
+     * 
+     *  id ID do compromisso
+     *  compromisso encontrado
+     *  RuntimeException se o compromisso não for encontrado
+     */
     public Compromisso buscarPorId(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Compromisso não encontrado"));
     }
 
-
+   /**
+    * Salva um novo compromisso no banco de dados.
+    */
     @Transactional
     public Compromisso salvar(Compromisso compromisso) {
         return repository.save(compromisso);
@@ -64,7 +82,9 @@ public class CompromissoService {
 
         return repository.save(existente);
     }
-
+    /**
+    * Deleta um compromisso no banco de dados.
+    */ 
     @Transactional
     public void deletar(Long id) {
         Compromisso existente = repository.findById(id)

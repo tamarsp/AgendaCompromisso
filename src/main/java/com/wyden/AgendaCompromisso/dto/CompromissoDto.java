@@ -2,15 +2,34 @@ package com.wyden.AgendaCompromisso.dto;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-
+/**
+ * DTO
+ * Contém informações sobre o título, descrição, data/hora do compromisso e
+ * o ID do usuário associado.*/
 public class CompromissoDto {
+    /**TITULO DO COMPRMISSO*/
 	private String titulo;
+	
+	/**DESCRIÇÃO DO COMPRMISSO*/
 	private String descricao;
+	
+	/**DATA E HORA DO COMPRMISSO*/
 	private LocalDateTime dataHora;
+	
+	/**ID DO COMPRMISSO*/
 	private Long UsuarioId;
+	
+	/**CONSTRUTOR VAZIO*/
 	public CompromissoDto() {
 		super();
 	}
+	
+	/**CONSTRUTOR COM SEUS PARAMETROS
+	 * titulo    título do compromisso
+     *  descricao descrição do compromisso
+     *dataHora  data e hora do compromisso
+     * usuarioId ID do usuário associado ao compromiss
+	 * */
 	public CompromissoDto(String titulo, String descricao, LocalDateTime dataHora, Long usuarioId) {
 		super();
 		this.titulo = titulo;

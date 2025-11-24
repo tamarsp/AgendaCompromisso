@@ -8,7 +8,10 @@ import com.wyden.AgendaCompromisso.Entities.Usuario;
 import com.wyden.AgendaCompromisso.Repository.UsuarioRepository;
 
 import jakarta.transaction.Transactional;
-
+/**
+ * Serviço responsável pela lógica de negócios relacionada a usuários.
+ * Este serviço realiza operações como listar, buscar, criar, atualizar e deletar usuários.
+ */
 @Service
 public class UsuarioService {
 
@@ -28,7 +31,10 @@ public class UsuarioService {
     public Usuario salvar(Usuario usuario) {
         return repository.save(usuario);
     }
-
+    /**
+     * Serviço responsável pela lógica de negócios relacionada a usuários.
+     * Este serviço realiza operações como listar, buscar, criar, atualizar e deletar usuários.
+     */
     @Transactional
     public Usuario atualizar(Long id, Usuario dadosAtualizados) {
 

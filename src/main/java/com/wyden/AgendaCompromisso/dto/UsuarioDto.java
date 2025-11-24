@@ -5,14 +5,32 @@ import java.util.Objects;
 
 import com.wyden.AgendaCompromisso.Entities.Compromisso;
 
+/**Contém dados essenciais de um usuário, como ID, nome, email e a lista de compromissos associados.
+ * Este DTO é geralmente usado em respostas da API para não expor informações sensíveis como senha.
+ * */
+
 public class UsuarioDto {
+	/** ID do usuário */
 	private Long Id;
+	
+	/** NOME do usuário */
 	private String nome;
+	
+	/** email do usuário */
 	private String email;
+	
+	/** lista de compromissos do usuário */
 	private List<Compromisso> compromissos;
+	
+	/** construtor vazio */
 	public UsuarioDto() {
 		super();
 	}
+	
+	/** construtor com os parametro
+	 * nome
+	 *  email
+	 * lista de compromissos */
 	public UsuarioDto(Long id, String nome, String email, List<Compromisso> compromissos) {
 		super();
 		Id = id;

@@ -17,6 +17,9 @@ import com.wyden.AgendaCompromisso.Repository.UsuarioRepository;
 import com.wyden.AgendaCompromisso.dto.UsuarioDtoCadastro;
 import com.wyden.AgendaCompromisso.dto.UsuarioDtoLogin;
 
+/**
+ * CONTROLADOR RESPOSAVEL PELO GERENCIAMENTO DO USUARIO, COMO CADASTRO, LOGIN, ATUALIZAÇÃO, EXCLUSÃO E BUSCAR POR USUARIO
+ */
 @RestController
 @RequestMapping("/usuarios")
 @CrossOrigin(origins = "*", allowCredentials = "false")
@@ -35,6 +38,10 @@ public class UsuarioController {
 	            })
 	            .orElse(ResponseEntity.notFound().build());
 	    }
+	    
+	    /**
+	     * CADASTRO DE USUSARIO, ONDE TAMBEM VERIFICA SE EMAIL JA EXISTE
+	     */
 
 	    @PostMapping("/cadastro")
 	    public ResponseEntity<?> cadastrar(@RequestBody UsuarioDtoCadastro dto) {
@@ -53,7 +60,10 @@ public class UsuarioController {
 
 	        return ResponseEntity.ok(salvo);
 	    }
-
+	    
+/**
+ * LOGIN DO USUARIO ONDE VERICA O EMAIL E SENHA PARA PODER LOGAR
+ */
 	    @PostMapping("/login")
 	    public ResponseEntity<?> login(@RequestBody UsuarioDtoLogin dto) {
 
@@ -68,6 +78,9 @@ public class UsuarioController {
 	        return ResponseEntity.status(401).body("Email ou senha inválidos");
 	    }
 
+	    /**
+	     * IRA ATUALIZAR OS DADOS DOS USUARIOS
+	     */
 	    @PutMapping("/{id}")
 	    public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
 	        return repository.findById(id)
@@ -79,7 +92,10 @@ public class UsuarioController {
 	            })
 	            .orElse(ResponseEntity.notFound().build());
 	    }
-
+	    
+/**
+ * DELETAR O USUARIO
+ */
 	    @DeleteMapping("/{id}")
 	    public ResponseEntity<Object> deletar(@PathVariable Long id) {
 	        return repository.findById(id)

@@ -2,8 +2,14 @@ package com.wyden.AgendaCompromisso.dto;
 
 import java.util.Objects;
 
+/**DTO (Data Transfer Object) utilizado para realizar login de usuários
+ * Contém apenas o email e a senha do usuário, usados para autenticação.*/
 public class UsuarioDtoLogin {
+	
+	 /** Email do usuário */
 	private String email;
+	
+	 /** senha do usuário */
     private String senha;
 	public UsuarioDtoLogin() {
 		super();

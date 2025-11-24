@@ -3,34 +3,62 @@ package com.wyden.AgendaCompromisso.dto;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * DTO (DATA TRANSFERER OBJECTS) É UTILIZADO PARA CRIAR NOVOS COMPROMISSOS.
+ * 
+ */
 public class CompromisooCriarDto {
+	/**TITULO DO COMPROMISSO*/
 	private String titulo;
+	
+	/**DESCRIÇÃO DO COMPROMISSO*/
 	private String descricao;
+	
+	/**DATA/HORA DO COMPROMISSO*/
 	private LocalDateTime dataHora;
+	
+	/**CONSTRUTOR VAZIO*/
 	public CompromisooCriarDto() {
 		super();
 	}
+	/**CONSTRUTOR COM PARAMENTROS
+	 * titulo    Título do compromisso
+     *  descricao Descrição detalhada
+     * dataHora  Data e hora do compromisso
+	 * */
 	public CompromisooCriarDto(String titulo, String descricao, LocalDateTime dataHora) {
 		super();
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.dataHora = dataHora;
 	}
+	
+	/**RETORNA O TITULO*/
 	public String getTitulo() {
 		return titulo;
 	}
+	
+	/**DEFINE O TITULO*/
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
+	
+	/**DEFINE A DESCRIÇÃO*/
 	public String getDescricao() {
 		return descricao;
 	}
+	
+	/**RETORNA A DESCRIÇÃO*/
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
+	/**DEFINE A HORA E A DATA*/
 	public LocalDateTime getDataHora() {
 		return dataHora;
 	}
+	
+	/**RETORNA A HORA E A DATA*/
 	public void setDataHora(LocalDateTime dataHora) {
 		this.dataHora = dataHora;
 	}

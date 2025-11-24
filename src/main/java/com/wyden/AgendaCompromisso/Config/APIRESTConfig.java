@@ -4,9 +4,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
+/**
+ * ApiREstConfig é responsavel pelopela configuração global de cors da API.
+ */
 @Configuration
 public class APIRESTConfig {
+	
+	/**
+	 * Cria o bean responsável por configurar o CORS global da API.
+	 * WebMvcConfigurer contem regras do cors.
+	 * */
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {

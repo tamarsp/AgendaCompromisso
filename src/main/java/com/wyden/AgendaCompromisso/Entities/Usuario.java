@@ -12,10 +12,20 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
+/**Entidade que representa um usuário no sistema.*/
 @Entity
 @Table(name="tb_usuario")
 public class Usuario {
+	/**
+     * Construtor completo.
+     * 
+     * nome         nome do usuário
+     * email        email do usuário
+     * senha        senha do usuário
+     *id           ID do usuário
+     * compromissos lista de compromissos associados
+     */
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

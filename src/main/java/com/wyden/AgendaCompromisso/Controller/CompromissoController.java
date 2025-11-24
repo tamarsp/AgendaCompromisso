@@ -18,6 +18,11 @@ import com.wyden.AgendaCompromisso.Entities.Compromisso;
 import com.wyden.AgendaCompromisso.Repository.CompromissoRepository;
 import com.wyden.AgendaCompromisso.Repository.UsuarioRepository;
 
+/**
+ * Controlador de compromisso responsavel por listar, criar, deletar e atualizar
+ * cpmpromissos dos usuario.
+ * */
+
 @RestController
 @RequestMapping("/compromissos")
 @CrossOrigin(origins = "*")
@@ -28,8 +33,12 @@ public class CompromissoController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-
-    // LISTAR COMPROMISSOS DE UM USUÁRIO
+    
+/**
+ * LISTAR COMPROMISSOS DE UM USUÁRIO
+ *usuarioId
+ */
+     
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<List<Compromisso>> listarPorUsuario(@PathVariable Long usuarioId) {
 
@@ -41,16 +50,22 @@ public class CompromissoController {
 
         return ResponseEntity.ok(lista);
     }
-
-    // BUSCAR POR ID
+    
+/**
+ *  BUSCAR POR ID
+ */
+    
     @GetMapping("/{id}")
     public ResponseEntity<Compromisso> buscarPorId(@PathVariable Long id) {
         return repository.findById(id)
                 .map(comp -> ResponseEntity.ok(comp))
                 .orElse(ResponseEntity.notFound().build());
     }
-
-    // CRIAR COMPROMISSO PARA USUÁRIO ESPECÍFICO
+    
+/**
+ * CRIAR COMPROMISSO PARA USUÁRIO ESPECÍFICO
+ */
+    
     @PostMapping("/usuario/{usuarioId}")
     public ResponseEntity<?> criar(@PathVariable Long usuarioId, @RequestBody Compromisso compromisso) {
 
@@ -62,8 +77,11 @@ public class CompromissoController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
-
-    // ATUALIZAR
+    
+/**
+ * ATUALIZA O COMPROMISSO
+ */
+    
     @PutMapping("/{id}")
     public ResponseEntity<Compromisso> atualizar(@PathVariable Long id, @RequestBody Compromisso compromisso) {
 
@@ -77,7 +95,10 @@ public class CompromissoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // DELETAR
+    /**
+     * DELETAR, APAGA O COMPROMISSO
+     */
+     
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
 
