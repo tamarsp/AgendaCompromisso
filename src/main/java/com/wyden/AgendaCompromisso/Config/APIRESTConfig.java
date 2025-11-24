@@ -18,7 +18,9 @@ public class APIRESTConfig {
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
-
+        	/**
+        	 * Metodo corsConfigurer
+        	 */
             @Override
             public void addCorsMappings(CorsRegistry registry) {
 

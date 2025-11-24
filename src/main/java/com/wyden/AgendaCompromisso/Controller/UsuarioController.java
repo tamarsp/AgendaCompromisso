@@ -18,7 +18,9 @@ import com.wyden.AgendaCompromisso.dto.UsuarioDtoCadastro;
 import com.wyden.AgendaCompromisso.dto.UsuarioDtoLogin;
 
 /**
- * CONTROLADOR RESPOSAVEL PELO GERENCIAMENTO DO USUARIO, COMO CADASTRO, LOGIN, ATUALIZAÇÃO, EXCLUSÃO E BUSCAR POR USUARIO
+ * Controlador REST para a entidade Usuário.
+ * Responsável por gerenciar operações como cadastro, login, busca,
+ * atualização e exclusão de usuários.
  */
 @RestController
 @RequestMapping("/usuarios")
@@ -28,7 +30,12 @@ public class UsuarioController {
 	
 	    @Autowired
 	    private UsuarioRepository repository;
-
+	    /**
+	     * Busca um usuário pelo seu ID, omitindo a senha na resposta por segurança.
+	     *
+	     * @param id O ID do usuário a ser buscado.
+	     * @return O objeto Usuario encontrado sem a senha (status 200 OK), ou status 404 Not Found se não existir.
+	     */
 	    @GetMapping("/{id}")
 	    public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
 	        return repository.findById(id)
@@ -40,7 +47,11 @@ public class UsuarioController {
 	    }
 	    
 	    /**
-	     * CADASTRO DE USUSARIO, ONDE TAMBEM VERIFICA SE EMAIL JA EXISTE
+	     * Realiza o cadastro de um novo usuário.
+	     * Verifica se o email já está em uso antes de salvar. A senha é omitida na resposta de sucesso.
+	     *
+	     * @param dto O objeto UsuarioDtoCadastro contendo nome, email e senha do novo usuário.
+	     * @return O objeto Usuario salvo (status 200 OK) ou status 400 Bad Request se o email já estiver em uso.
 	     */
 
 	    @PostMapping("/cadastro")
@@ -61,9 +72,12 @@ public class UsuarioController {
 	        return ResponseEntity.ok(salvo);
 	    }
 	    
-/**
- * LOGIN DO USUARIO ONDE VERICA O EMAIL E SENHA PARA PODER LOGAR
- */
+	    /**
+	     * Realiza a autenticação (login) do usuário verificando email e senha.
+	     *
+	     * @param dto O objeto UsuarioDtoLogin contendo o email e a senha para autenticação.
+	     * @return O objeto Usuario autenticado sem a senha (status 200 OK), ou status 401 Unauthorized se as credenciais forem inválidas.
+	     */
 	    @PostMapping("/login")
 	    public ResponseEntity<?> login(@RequestBody UsuarioDtoLogin dto) {
 
@@ -79,7 +93,11 @@ public class UsuarioController {
 	    }
 
 	    /**
-	     * IRA ATUALIZAR OS DADOS DOS USUARIOS
+	     * Atualiza os dados de um usuário existente.
+	     *
+	     * @param id O ID do usuário a ser atualizado.
+	     * @param usuario O objeto Usuario com os novos dados (nome, email e senha).
+	     * @return O Usuario atualizado (status 200 OK) ou status 404 Not Found se o usuário não existir.
 	     */
 	    @PutMapping("/{id}")
 	    public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
@@ -93,9 +111,12 @@ public class UsuarioController {
 	            .orElse(ResponseEntity.notFound().build());
 	    }
 	    
-/**
- * DELETAR O USUARIO
- */
+	    /**
+	     * Deleta um usuário pelo seu ID.
+	     *
+	     * @param id O ID do usuário a ser deletado.
+	     * @return Status 200 OK se o usuário for deletado com sucesso, ou status 404 Not Found se não existir.
+	     */
 	    @DeleteMapping("/{id}")
 	    public ResponseEntity<Object> deletar(@PathVariable Long id) {
 	        return repository.findById(id)

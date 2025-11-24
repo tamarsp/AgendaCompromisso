@@ -19,9 +19,10 @@ import com.wyden.AgendaCompromisso.Repository.CompromissoRepository;
 import com.wyden.AgendaCompromisso.Repository.UsuarioRepository;
 
 /**
- * Controlador de compromisso responsavel por listar, criar, deletar e atualizar
- * cpmpromissos dos usuario.
- * */
+ * Controlador REST para a entidade Compromisso.
+ * Responsável por gerenciar as operações CRUD (Criar, Listar, Buscar, Atualizar e Deletar)
+ * de compromissos associados a usuários.
+ */
 
 @RestController
 @RequestMapping("/compromissos")
@@ -34,10 +35,12 @@ public class CompromissoController {
     @Autowired
     private UsuarioRepository usuarioRepository;
     
-/**
- * LISTAR COMPROMISSOS DE UM USUÁRIO
- *usuarioId
- */
+    /**
+     * Lista todos os compromissos associados a um usuário específico.
+     *
+     * @param usuarioId O ID do usuário cujos compromissos devem ser listados.
+     * @return Uma lista de Compromissos (status 200 OK) ou status 404 Not Found se o usuário não existir.
+     */     
      
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<List<Compromisso>> listarPorUsuario(@PathVariable Long usuarioId) {
@@ -51,9 +54,12 @@ public class CompromissoController {
         return ResponseEntity.ok(lista);
     }
     
-/**
- *  BUSCAR POR ID
- */
+    /**
+     * Busca um compromisso pelo seu ID.
+     *
+     * @param id O ID do compromisso a ser buscado.
+     * @return O Compromisso encontrado (status 200 OK) ou status 404 Not Found se não existir.
+     */
     
     @GetMapping("/{id}")
     public ResponseEntity<Compromisso> buscarPorId(@PathVariable Long id) {
@@ -62,9 +68,13 @@ public class CompromissoController {
                 .orElse(ResponseEntity.notFound().build());
     }
     
-/**
- * CRIAR COMPROMISSO PARA USUÁRIO ESPECÍFICO
- */
+    /**
+     * Cria um novo compromisso e o associa a um usuário existente.
+     *
+     * @param usuarioId O ID do usuário ao qual o compromisso será associado.
+     * @param compromisso O objeto Compromisso contendo os dados a serem salvos.
+     * @return O Compromisso salvo (status 200 OK) ou status 404 Not Found se o usuário não existir.
+     */
     
     @PostMapping("/usuario/{usuarioId}")
     public ResponseEntity<?> criar(@PathVariable Long usuarioId, @RequestBody Compromisso compromisso) {
@@ -78,10 +88,13 @@ public class CompromissoController {
                 .orElse(ResponseEntity.notFound().build());
     }
     
-/**
- * ATUALIZA O COMPROMISSO
- */
-    
+    /**
+     * Atualiza um compromisso existente.
+     *
+     * @param id O ID do compromisso a ser atualizado.
+     * @param compromisso O objeto Compromisso com os novos dados.
+     * @return O Compromisso atualizado (status 200 OK) ou status 404 Not Found se o compromisso não existir.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Compromisso> atualizar(@PathVariable Long id, @RequestBody Compromisso compromisso) {
 
@@ -96,8 +109,11 @@ public class CompromissoController {
     }
 
     /**
-     * DELETAR, APAGA O COMPROMISSO
-     */
+     * Deleta um compromisso pelo seu ID.
+     *
+     * @param id O ID do compromisso a ser deletado.
+     * @return Status 204 No Content se o compromisso for deletado com sucesso, ou status 404 Not Found se não existir.
+     */   
      
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {

@@ -8,14 +8,15 @@ import com.wyden.AgendaCompromisso.Entities.Compromisso;
 
 /**
  * Repositório JPA para a entidade {@link Compromisso}.
- * Fornece métodos padrão de CRUD e também métodos customizados para consulta de compromissos.
- *>Extende que já disponibiliza operações como salvar, atualizar, deletar e buscar por ID.</p>
- *  */
+ * Estende {@link JpaRepository} para fornecer métodos padrão de CRUD
+ * e define métodos customizados para consulta de compromissos.
+ */
 public interface CompromissoRepository extends JpaRepository<Compromisso, Long> {
 	/**
-     * Retorna uma lista de compromissos associados a um usuário específico.
-     * usuarioId ID do usuário cujos compromissos serão retornados
-     * lista de compromissos do usuário
+     * Retorna uma lista de compromissos associados a um usuário específico através do ID do usuário.
+     *
+     * @param usuarioId O ID do usuário cujos compromissos serão retornados.
+     * @return Uma lista de objetos {@link Compromisso} pertencentes ao usuário.
      */
 	List<Compromisso> findByUsuarioId(Long usuarioId);
 

@@ -3,9 +3,10 @@ package com.wyden.AgendaCompromisso.dto;
 import java.time.LocalDateTime;
 import java.util.Objects;
 /**
- * DTO
+ * DTO (Data Transfer Object) utilizado para o transporte de dados de Compromisso.
  * Contém informações sobre o título, descrição, data/hora do compromisso e
- * o ID do usuário associado.*/
+ * o ID do usuário associado.
+ */
 public class CompromissoDto {
     /**TITULO DO COMPRMISSO*/
 	private String titulo;
@@ -19,17 +20,20 @@ public class CompromissoDto {
 	/**ID DO COMPRMISSO*/
 	private Long UsuarioId;
 	
-	/**CONSTRUTOR VAZIO*/
+	/**
+	 * Construtor padrão (vazio).
+	 */
 	public CompromissoDto() {
 		super();
 	}
 	
-	/**CONSTRUTOR COM SEUS PARAMETROS
-	 * titulo    título do compromisso
-     *  descricao descrição do compromisso
-     *dataHora  data e hora do compromisso
-     * usuarioId ID do usuário associado ao compromiss
-	 * */
+	/**
+	 * Construtor completo.
+	 * * @param titulo O título do compromisso.
+     * @param descricao A descrição do compromisso.
+     * @param dataHora A data e hora do compromisso.
+     * @param usuarioId O ID do usuário associado ao compromisso.
+	 */
 	public CompromissoDto(String titulo, String descricao, LocalDateTime dataHora, Long usuarioId) {
 		super();
 		this.titulo = titulo;

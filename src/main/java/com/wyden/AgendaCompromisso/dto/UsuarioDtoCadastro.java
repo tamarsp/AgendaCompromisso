@@ -2,8 +2,12 @@ package com.wyden.AgendaCompromisso.dto;
 
 import java.util.Objects;
 
-/** Contém informações necessárias para criar um usuário no sistema: nome, email e senha.
- * Geralmente utilizado nas requisições de cadastro via API.*/
+/**
+ * DTO (Data Transfer Object) contendo as informações necessárias para criar um usuário no sistema:
+ * nome, email e senha.
+ * Geralmente utilizado nas requisições de cadastro via API.
+ */
+
 public class UsuarioDtoCadastro {
 	/** Nome do usuário */
 	private String nome;
@@ -14,15 +18,16 @@ public class UsuarioDtoCadastro {
     /** senha do usuário */
     private String senha;
     
-    /** construtor vazio */
+    /** construtor padrão */
 	public UsuarioDtoCadastro() {
 		super();
 	}
 	
-	/** construtor
-	 * nome
-	 *  email
-	 *  senha*/
+	/** * Construtor completo.
+	 * * @param nome O nome do usuário.
+	 * @param email O email do usuário.
+	 * @param senha A senha do usuário.
+	 */
 	public UsuarioDtoCadastro(String nome, String email, String senha) {
 		super();
 		this.nome = nome;

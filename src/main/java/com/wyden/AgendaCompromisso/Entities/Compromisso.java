@@ -10,32 +10,40 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 /**
- * Entidade que representa um compromisso de um usuário no sistema.
- * */
+ * Entidade que representa um compromisso (evento agendado) de um usuário no sistema.
+ * Mapeada para a tabela "tb_compromisso" no banco de dados.
+ */
 @Entity
 @Table(name="tb_compromisso")
 public class Compromisso {
-	
-	/**Construtor completo.
-    * 
-    * id        Identificador do compromisso
-    * titulo    Título do compromisso
-    * descricao Descrição do compromisso
-    *dataHora  Data e hora do compromisso
-    * usuario   Usuário associado
-    */
+	/** Identificador único do compromisso. */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String titulo;
     private String descricao;
     private LocalDateTime dataHora;
+    
+    /**
+     * Usuário associado a este compromisso (relação Muitos para Um).
+     * Mapeado para a coluna 'usuario_id' no banco de dados.
+     */
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-
+    /**
+     * Construtor padrão (necessário pelo JPA).
+     */
     public Compromisso() {}
-
+    /**
+     * Construtor completo para inicialização de Compromisso.
+     *
+     * @param id Identificador único do compromisso.
+     * @param titulo O título do compromisso.
+     * @param descricao A descrição detalhada do compromisso.
+     * @param dataHora A data e hora do compromisso.
+     * @param usuario O usuário associado a este compromisso.
+     */
     public Compromisso(long id, String titulo, String descricao, LocalDateTime dataHora, Usuario usuario) {
         this.id = id;
         this.titulo = titulo;

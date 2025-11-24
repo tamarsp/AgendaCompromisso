@@ -1,0 +1,7 @@
+com.wyden.AgendaCompromisso
+com.wyden.AgendaCompromisso.Config
+com.wyden.AgendaCompromisso.Controller
+com.wyden.AgendaCompromisso.dto
+com.wyden.AgendaCompromisso.Entities
+com.wyden.AgendaCompromisso.Repository
+com.wyden.AgendaCompromisso.Service

@@ -4,8 +4,9 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * DTO (DATA TRANSFERER OBJECTS) É UTILIZADO PARA CRIAR NOVOS COMPROMISSOS.
- * 
+ * DTO (Data Transfer Object) utilizado para o transporte de dados
+ * ao criar um novo Compromisso. Contém apenas os campos necessários
+ * para o agendamento (título, descrição, data/hora).
  */
 public class CompromisooCriarDto {
 	/**TITULO DO COMPROMISSO*/
@@ -17,15 +18,18 @@ public class CompromisooCriarDto {
 	/**DATA/HORA DO COMPROMISSO*/
 	private LocalDateTime dataHora;
 	
-	/**CONSTRUTOR VAZIO*/
+	/**
+	 * Construtor padrão (vazio).
+	 */
 	public CompromisooCriarDto() {
 		super();
 	}
-	/**CONSTRUTOR COM PARAMENTROS
-	 * titulo    Título do compromisso
-     *  descricao Descrição detalhada
-     * dataHora  Data e hora do compromisso
-	 * */
+	/**
+	 * Construtor completo.
+	 * * @param titulo O título do compromisso.
+     * @param descricao A descrição detalhada do compromisso.
+     * @param dataHora A data e hora do compromisso.
+	 */
 	public CompromisooCriarDto(String titulo, String descricao, LocalDateTime dataHora) {
 		super();
 		this.titulo = titulo;

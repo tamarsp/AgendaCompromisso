@@ -12,36 +12,50 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-/**Entidade que representa um usuário no sistema.*/
+
+/**
+ * Entidade que representa um usuário no sistema.
+ * Mapeada para a tabela "tb_usuario" no banco de dados.
+ */
 @Entity
 @Table(name="tb_usuario")
 public class Usuario {
-	/**
-     * Construtor completo.
-     * 
-     * nome         nome do usuário
-     * email        email do usuário
-     * senha        senha do usuário
-     *id           ID do usuário
-     * compromissos lista de compromissos associados
-     */
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 	private String email;
+	/**
+	 * A senha é ignorada na serialização JSON para segurança.
+	 */
 	@JsonIgnore
 	private String senha;
 	
+	/**
+	 * Lista de compromissos associados a este usuário.
+	 * O relacionamento é mapeado pelo campo "usuario" na entidade Compromisso.
+	 * Operações de cascata (ALL) e remoção órfã estão ativas.
+	 */
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
 	private List<Compromisso> compromissos;
+	/**
+	 * Construtor padrão (necessário pelo JPA).
+	 */
 	public Usuario() {
 		super();
 	}
-
+	/**
+     * Construtor completo para criação de usuário.
+     *
+     * @param nome O nome do usuário.
+     * @param email O email único do usuário.
+     * @param senha A senha do usuário.
+     * @param id O ID do usuário (geralmente nulo na criação).
+     * @param compromissos A lista de compromissos associados (geralmente vazia na criação).
+     */
 	public Usuario(String nome, String email, String senha, Long id, List<Compromisso> compromissos) {
 		super();
 		this.nome = nome;
